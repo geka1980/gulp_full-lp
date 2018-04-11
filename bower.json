@@ -1,0 +1,22 @@
+{
+  "name": "build__lp",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "geka1980 <evgenij.kropachev@yandex.ru>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "^3.3.1",
+    "normalize.css": "^8.0.0",
+    "font-awesome": "fontAwesome#v4.7.0"
+  }
+}

@@ -1,0 +1,20 @@
+/*
+ * Подлючаем стили переменных
+ */
+@import 'vars.styl'
+/*
+ * Подлючаем стили типографии
+ */
+@import 'typography.styl'
+
+// Миксин для создания медиа-стилей
+
+responsive(screenWidth)
+	@media only screen and (max-width: screenWidth)
+		{block}
+		
+/*border-radius()
+	-webkit-border-radius arguments
+	-moz-border-radius arguments
+	border-radius arguments*/
+	
