@@ -45,7 +45,7 @@ gulp.task('server', ['cssDev', 'htmlDev', 'jsDev'], function() {
  */
 
 gulp.task('htmlDev', function() {
-	return gulp.src('dev/pug/**/*.pug')
+	return gulp.src('dev/pug/index.pug')
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err) {
 				return {
