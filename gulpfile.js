@@ -18,85 +18,58 @@ var gulp = require('gulp'),
 		styl = require('gulp-stylus'),
 		uglify = require('gulp-uglify'),
 		png = require('imagemin-pngquant'),
-		sync  = require('browser-sync').create(),
-		reolad = sync.reolad;
+		sync  = require('browser-sync').create();
 
 /*
 	Запускаем слежение за изменениями в файлах проекта и автоматическим обнавлением страницы в браузере
  */
 
-gulp.task('server', ['cssDev', 'htmlDev', 'jsDev'], function() {
+gulp.task('server', ['css:dev', 'html:dev', 'js:dev'], function() {
 	sync.init({
 		server: {
-			baseDir: 'dev/files'
+			baseDir: 'dev/files/'
 		}
 	});	
-	gulp.watch('dev/pug/**/*.pug', ['htmlDev']);
+	gulp.watch('dev/pug/**/*.pug', ['html:dev']);
 	gulp.watch([
 		'dev/styles/**/*.styl',
 		'dev/blocks/**/*.styl'
-		],	['cssDev']);
+		],	['css:dev']);
 	gulp.watch('dev/blocks/**/*.*').on('change', sync.reload);
 	gulp.watch('dev/blocks/**/*.css').on('change', sync.reload);
 });
 
-/*
-	Создаем магию сборки GULP
- */
-
-gulp.task('htmlDev', function() {
+gulp.task('html:dev', function() {
 	return gulp.src('dev/pug/index.pug')
-		.pipe(plumber({
-			errorHandler: notify.onError(function(err) {
-				return {
-					title: 'Pug-Html',
-					message: err.massage
-				}
-			})
-		}))
+		.pipe(plumber())
 		.pipe(pug({pretty: true}))
 		.pipe(gulp.dest('dev/files'))
 		.pipe(sync.stream());
 });
 
-gulp.task('cssDev', function() {
+gulp.task('css:dev', function() {
 	return gulp.src('dev/styles/styles.styl')
-		.pipe(plumber({
-			errorHandler: notify.onError(function(err) {
-				return {
-					title: 'Stylus-Css',
-					message: err.message
-				}
-			})
-		}))
-		.pipe(soursmap.init())
-		.pipe(styl())
-		.pipe(prefix())
-		.pipe(gulp.dest('dev/files/css'))
-		.pipe(rename({suffix: '.min'}))
-		.pipe(csso())
-		.pipe(gulp.dest('dev/files/css'))
+		.pipe(plumber())
+		.pipe(soursmap.init({largeFile: true}))
+			.pipe(styl())
+			.pipe(prefix())
+			.pipe(rename({suffix: '.min'}))
+			.pipe(csso())
 		.pipe(soursmap.write())
+		.pipe(gulp.dest('dev/files/css'))
 		.pipe(sync.stream());
 });
 
-gulp.task('jsDev', function() {
+gulp.task('js:dev', function() {
 	return gulp.src('dev/blocks/**/*.js')
-		.pipe(plumber({
-			errorHandler: notify.onError(function(err) {
-				return {
-					title: 'javaScript',
-					message: err.message
-				}
-			})
-		}))
+		.pipe(plumber())
 		.pipe(soursmap.init())
-		.pipe(concat('index.js'))
-		.pipe(gulp.dest('dev/files/js/'))
-		.pipe(rename({suffix: '.min'}))
-		.pipe(uglify())
-		.pipe(gulp.dest('dev/files/js/'))
+			.pipe(concat('index.js'))
+			.pipe(gulp.dest('dev/files/js/'))
+			.pipe(rename({suffix: '.min'}))
+			.pipe(uglify())
 		.pipe(soursmap.write())
+		.pipe(gulp.dest('dev/files/js/'))
 		.pipe(sync.stream());
 });
 
@@ -134,11 +107,11 @@ gulp.task('default', ['server', 'build']);
 	Перенос в продакшен
  */
 
-gulp.task('clean', function() {
+gulp.task('clean:build', function() {
 	return del('dist');
 });
 
-gulp.task('img', function() {
+gulp.task('img:build', function() {
 	return gulp.src('dev/files/img/**/*.*')
 	.pipe(imagemin({
 		use: [pngquant]
@@ -146,7 +119,7 @@ gulp.task('img', function() {
 	.pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('dist', function() {
+gulp.task('dist:build', function() {
 	var htmlDist = gulp.src('dev/files/index.html')
 		.pipe(gulp.dest('dist'));
 	var cssDist = gulp.src('dev/files/css/*.css')
@@ -158,4 +131,4 @@ gulp.task('dist', function() {
 	return htmlDist, cssDist, jsDist, fontsDist;
 });
 
-gulp.task('public', gulp.series('clean', 'img', 'dist'));
+gulp.task('public', ['clean:build', 'img:build', 'dist:build']);
