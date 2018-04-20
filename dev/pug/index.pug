@@ -1,8 +1,29 @@
-<!DOCTYPE html>
-html(lang="ru")
-	head
-		meta(charset="UTF-8")
-		title Document
-		link(rel="stylesheet", href="css/styles.css")
-	body
-		h1 Привет мир - я сборка на gulp
+doctype html
+html
+
+	include includes/head.pug
+
+	body.body
+
+		.site
+			
+			include includes/header.pug
+
+			.site__content.content
+			
+				//- include blocks/block-1.pug
+				
+				//- include blocks/block-2.pug
+				
+				//- include blocks/block-3.pug
+				
+				//- include blocks/block-4.pug
+				
+				//- include blocks/block-5.pug
+				
+				//- include blocks/block-6.pug
+				
+			include includes/footer.pug
+			
+		script(src='assets/js/vendor.min.js')
+		script(src='assets/js/common.min.js')

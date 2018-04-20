@@ -1,0 +1,25 @@
+.header
+	@extend .width
+	@extend .flex
+	&__top
+		@extend .width
+		@extend .flex
+		height 163px
+
+.logo
+	flex-grow 1
+	&__title
+		@extend .logo
+	text-transform uppercase
+
+.nav
+	flex-grow 2
+	&__list
+		@extend .flex
+		letter-spacing normal
+	&__item
+		list-style-type none
+	&__link
+		font-size fontSize
+		font-family titleFonts
+		text-transform uppercase

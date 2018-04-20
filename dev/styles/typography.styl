@@ -1,34 +1,34 @@
-/*!
+/*
  * Стили заголовков
  */
  
 h1
-	font-size fontSiz * 4.5
+	font-size fontSize * 4.5
 	color baseColor
 	font-family titleFonts
 	line-height lineHeight
 h2
-	font-size fontSiz * 4
+	font-size fontSize * 2.2
 	color baseColor
 	font-family titleFonts
-	line-height lineHeight
+	line-height lineHeight - 0.4
 h3
-	font-size fontSiz * 3.5
+	font-family baseFonts
+	font-size fontSize
 	color baseColor
-	font-family titleFonts
-	line-height lineHeight
+	line-height lineHeight - 0.4
 h4
-	font-size fontSiz * 3
+	font-size fontSize * 3
 	color baseColor
 	font-family titleFonts
 	line-height lineHeight
 h5
-	font-size fontSiz * 2.5
+	font-size fontSize * 2.5
 	color baseColor
 	font-family titleFonts
 	line-height lineHeight
 h6
-	font-size fontSiz * 2
+	font-size fontSize * 2
 	color baseColor
 	font-family titleFonts
 	line-height lineHeight
@@ -38,10 +38,10 @@ h6
  */
 
 p
-	font-size fontSiz
+	font-size fontSize
 	color baseColor
 	font-family baseFonts
-	line-height lineHeight
+	line-height lineHeight + 1
 span
 	font-size fontSiz
 	color baseColor
@@ -53,12 +53,17 @@ span
  */
  
 a
-	font-size fontSiz
+	font-size fontSize
 	color baseColor
+	line-height lineHeight
 	text-decoration none
-	display inline-block
+	box-sizing border-box
 	&:focus
 		outline 0
 	&:hover
-		color font-size fontSiz
-		color yellowColor
+		color successColor
+		font-weight 600
+
+.active
+	color successColor
+	font-weight 600
