@@ -1,5 +1,6 @@
 # Files to ignore
 *-dist.zip
+package-lock.json
 
 # Folders to ignore
 /node_modules/
